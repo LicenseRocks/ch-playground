@@ -5,7 +5,7 @@ export default function Document() {
     <Html data-theme="night">
       <Head>
         <link href="https://cdn.jsdelivr.net/npm/daisyui@2.6.3/dist/full.css" rel="stylesheet" type="text/css" />
-        <script src="https://cdn.tailwindcss.com" />
+        <script async src="https://cdn.tailwindcss.com" />
       </Head>
       <body>
         <div className="navbar bg-base-100">
