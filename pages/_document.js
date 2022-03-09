@@ -14,8 +14,16 @@ export default function Document() {
           </div>
           <div className="flex-none">
             <ul className="menu menu-horizontal p-0">
-              <li><a>Github code</a></li>
-              <li><a>Docs</a></li>
+              <li>
+                <a href="https://github.com/LicenseRocks/ch-playground" target="_blank" rel="noreferrer">
+                  Github code
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/LicenseRocks/ch-docs" target="_blank" rel="noreferrer">
+                  Docs
+                </a>
+              </li>
             </ul>
           </div>
         </div>

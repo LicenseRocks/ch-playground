@@ -33,13 +33,16 @@ export default function Home() {
   }
 
   const handleLogin = () => {
-    const currentUrl = "http://localhost:5000";
+    const currentUrl = document.URL;
     const ssoUrl = `${process.env.NEXT_PUBLIC_API_INSTANCE}/auth/sso?redirectToSso=${currentUrl}`;
     window.location.href = ssoUrl;
   }
 
   return (
     <div className="hero min-h-screen bg-base-200">
+      <Head>
+        <title>CH Playground</title>
+      </Head>
       <div className="hero-content text-center">
         <div className="max-w-md">
           {!currentUser?.user && (
