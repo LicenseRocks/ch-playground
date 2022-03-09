@@ -1,5 +1,7 @@
 import Head from 'next/head'
+import { useEffect } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import useSWR, { mutate } from 'swr'
 
 const userfetcher = (...args) =>
@@ -9,11 +11,13 @@ const userfetcher = (...args) =>
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const userApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/auth/user`;
+const ssoApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/auth/sso`;
 const logoutApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/auth/logout`;
 const ownedNftApi = (addr) => `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/public/nfts/ownedBy?addr=${addr}`;
 const collectionsApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/user/collections`;
 
 export default function Home() {
+  const { query, push } = useRouter();
   const { data: currentUser, error: currentUserErr } = useSWR(userApi, userfetcher)
   const { data: ownedNfts, error: ownedNftsErr } = useSWR(
     currentUser?.user
@@ -27,9 +31,31 @@ export default function Home() {
     : undefined, userfetcher, { fallbackData: { collections: [] } }
   )
 
+  useEffect(() => {
+    const refreshSession = async () => {
+      await fetcher(ssoApi, {
+        body: JSON.stringify({ token: query.accessToken }),
+        method: "POST",
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      await mutate(userApi);
+      push('/');
+    }
+
+    console.log({ query });
+
+    if(query.accessToken) {
+      refreshSession();
+    }
+  }, [query])
+
   const handleLogout = async () => {
     await userfetcher([logoutApi]);
-    await mutate(userApi)
+    await mutate(userApi);
+    push('/');
   }
 
   const handleLogin = () => {
