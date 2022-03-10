@@ -19,7 +19,7 @@ const collectionsApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/user/collect
 
 export default function Home() {
   const { query, push } = useRouter();
-  const { data: currentUser, error: currentUserErr } = useSWR(userApi, userfetcher)
+  const { data: currentUser, error: currentUserErr, isValidating } = useSWR(userApi, userfetcher)
   const { data: ownedNfts, error: ownedNftsErr } = useSWR(
     currentUser?.user
     ? ownedNftApi(currentUser.user.ethereumPublicAddr)
@@ -70,7 +70,8 @@ export default function Home() {
       </Head>
       <div className="hero-content text-center">
         <div className="max-w-md">
-          {!currentUser?.user && (
+          {isValidating && <p className='mt-6 mb-6'>Loading...</p>}
+          {!currentUser?.user && !isValidating && (
             <>
               <h1 className="text-5xl font-bold">CreatorsHub playground</h1>
               <p className="py-6">In this website you may try our API</p>
@@ -88,7 +89,7 @@ export default function Home() {
             </>
           )}
 
-          {currentUser?.user && (
+          {currentUser?.user && !isValidating && (
             <>
               <h1 className="text-5xl font-bold">{currentUser.user.name}</h1>
               <div className="avatar">
