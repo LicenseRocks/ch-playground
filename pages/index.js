@@ -12,7 +12,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const userApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/auth/user`;
 const ssoApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/auth/sso`;
-const logoutApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/auth/logout`;
+const logoutApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/auth/logout?sso=1`;
 const ownedNftApi = (addr) => `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/public/nfts/ownedBy?addr=${addr}`;
 const collectionsApi = `${process.env.NEXT_PUBLIC_API_INSTANCE}/api/user/collections`;
 
