@@ -115,6 +115,13 @@ export default function Home() {
                   </a>
                 </Link>
               </p>
+              <p>
+                <Link href={`/marketplaceStats`} passHref>
+                  <a className="btn btn-warning mt-6">
+                    Basic marketplace stats
+                  </a>
+                </Link>
+              </p>
               <button className="btn btn-error mt-6" onClick={handleLogout}>
                 Logout
               </button>

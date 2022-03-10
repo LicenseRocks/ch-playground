@@ -33,9 +33,16 @@ export default function OwnedNftsPage() {
                 <h2 className="card-title">{item.title}</h2>
                 <p>{item.payload.description}</p>
                 <div className="card-actions justify-end">
-                  <a href={`${process.env.NEXT_PUBLIC_API_INSTANCE}/nft/${item.slug}`} target="_blank" rel="noreferrer">
-                    <button className="btn btn-primary">Buy Now</button>
-                  </a>
+                  {item.availableAmount > 0 && (
+                    <a href={`${process.env.NEXT_PUBLIC_API_INSTANCE}/nft/${item.slug}`} target="_blank" rel="noreferrer">
+                      <button className="btn btn-success">Buy Now</button>
+                    </a>
+                  )}
+                  {item.availableAmount === 0 && (
+                    <a href={`${process.env.NEXT_PUBLIC_API_INSTANCE}/nft/${item.slug}`} target="_blank" rel="noreferrer">
+                      <button className="btn btn-danger">Not available</button>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
