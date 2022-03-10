@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import Link from 'next/link'
 
 export default function Document() {
   return (
@@ -10,7 +11,9 @@ export default function Document() {
       <body>
         <div className="navbar bg-base-100">
           <div className="flex-1">
-            <a className="btn btn-ghost normal-case text-xl">API playground</a>
+            <Link href="/" passHref>
+              <a className="btn btn-ghost normal-case text-xl">API playground</a>
+            </Link>
           </div>
           <div className="flex-none">
             <ul className="menu menu-horizontal p-0">

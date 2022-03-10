@@ -1,6 +1,7 @@
-import Head from 'next/head'
 import { useEffect } from 'react'
+import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR, { mutate } from 'swr'
 
@@ -44,8 +45,6 @@ export default function Home() {
       await mutate(userApi);
       push('/');
     }
-
-    console.log({ query });
 
     if(query.accessToken) {
       refreshSession();
@@ -94,7 +93,7 @@ export default function Home() {
               <h1 className="text-5xl font-bold">{currentUser.user.name}</h1>
               <div className="avatar">
                 <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 mt-6">
-                  <img src={currentUser.user.profile.avatar} />
+                  <img src={currentUser.user.profile.avatar} alt="user profile avatar" />
                 </div>
               </div>
               <p className="py-6">{currentUser.user.ethereumPublicAddr}</p>
@@ -108,7 +107,13 @@ export default function Home() {
                   <div className="stat-value">{ownedCollections.collections.length}</div>
                 </div>
               </div>
-              <p></p>
+              <p>
+                <Link href={`/ownedNfts?addr=${currentUser.user.ethereumPublicAddr}`} passHref>
+                  <a className="btn btn-primary mt-6">
+                    Show my NFTs
+                  </a>
+                </Link>
+              </p>
               <button className="btn btn-error mt-6" onClick={handleLogout}>
                 Logout
               </button>
