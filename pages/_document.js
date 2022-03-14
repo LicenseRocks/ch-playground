@@ -23,7 +23,7 @@ export default function Document() {
                 </a>
               </li>
               <li>
-                <a href="https://github.com/LicenseRocks/ch-docs" target="_blank" rel="noreferrer">
+                <a href="https://docs.license.rocks" target="_blank" rel="noreferrer">
                   Docs
                 </a>
               </li>
