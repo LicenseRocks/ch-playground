@@ -122,6 +122,13 @@ export default function Home() {
                   </a>
                 </Link>
               </p>
+              <p>
+                <Link href={`/claimCoupons`} passHref>
+                  <a className="btn btn-warning mt-6">
+                    Coupons
+                  </a>
+                </Link>
+              </p>
               <button className="btn btn-error mt-6" onClick={handleLogout}>
                 Logout
               </button>
