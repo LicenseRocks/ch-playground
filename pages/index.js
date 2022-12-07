@@ -109,17 +109,13 @@ export default function Home() {
                 </div>
               </div>
               <p>
-                <Link href={`/ownedNfts?addr=${currentUser.user.ethereumPublicAddr}`} passHref>
-                  <a className="btn btn-primary mt-6">
-                    Show my NFTs
-                  </a>
+                <Link href={`/ownedNfts?addr=${currentUser.user.ethereumPublicAddr}`} className="btn btn-primary mt-6">
+                  Show my NFTs
                 </Link>
               </p>
               <p>
-                <Link href={`/marketplaceStats`} passHref>
-                  <a className="btn btn-warning mt-6">
-                    Basic marketplace stats
-                  </a>
+                <Link href={`/marketplaceStats`} className="btn btn-warning mt-6">
+                  Basic marketplace stats
                 </Link>
               </p>
               <p>
