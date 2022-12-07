@@ -1,18 +1,19 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import Link from 'next/link'
+import Script from 'next/script'
 
 export default function Document() {
   return (
     <Html data-theme="night">
       <Head>
         <link href="https://cdn.jsdelivr.net/npm/daisyui@2.6.3/dist/full.css" rel="stylesheet" type="text/css" />
-        <script async src="https://cdn.tailwindcss.com" />
+        <Script src="https://cdn.tailwindcss.com" strategy='beforeInteractive' />
       </Head>
       <body>
         <div className="navbar bg-base-100">
           <div className="flex-1">
-            <Link href="/" passHref>
-              <a className="btn btn-ghost normal-case text-xl">API playground</a>
+            <Link href="/" className='btn btn-ghost normal-case text-xl'>
+              API playground
             </Link>
           </div>
           <div className="flex-none">
