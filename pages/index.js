@@ -64,6 +64,40 @@ export default function Home() {
     window.location.href = ssoUrl;
   }
 
+  const receiveMessage = async (event) => {
+    console.log("Incoming message from: ", event.origin)
+    if(event.origin !== process.env.NEXT_PUBLIC_API_INSTANCE) {
+      console.log("rejecting...")
+      return;
+    }
+    console.log("Data: ", event.data)
+
+    await fetcher(ssoApi, {
+      body: JSON.stringify({ token: event.data }),
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    await mutate(userApi);
+    push('/');    
+  }
+  
+  const openPopup = () => {
+    const currentUrl = document.URL;
+    const width = 375; 
+    const height = 680;
+    const left = (screen.width / 2) - (width / 2);
+    const top = (screen.height / 2) - (height / 2);
+    window.open(
+      `${process.env.NEXT_PUBLIC_API_INSTANCE}/auth/sso?redirectToSso=${currentUrl}`, 
+      "Log-in Window", 
+      `width=${width}, height=${height}, left=${left}, top=${top}`
+    );
+    window.addEventListener("message", receiveMessage, false);  
+  }
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <Head>
@@ -102,11 +136,11 @@ export default function Home() {
               <div className="stats shadow">
                 <div className="stat">
                   <div className="stat-title">Owned NFTs</div>
-                  <div className="stat-value">{ownedNfts.nfts.length}</div>
+                  <div className="stat-value">{ownedNfts?.nfts?.length ?? "0"}</div>
                 </div>
                 <div className="stat">
                   <div className="stat-title">Collections</div>
-                  <div className="stat-value">{ownedCollections.collections.length}</div>
+                  <div className="stat-value">{ownedCollections?.collections?.length ?? "0"}</div>
                 </div>
               </div>
               <p>
@@ -129,6 +163,11 @@ export default function Home() {
               </button>
             </>
           )}
+           {!currentUser?.user && !isValidating && (
+            <button className="btn btn-block btn-error mt-6" onClick={openPopup}>
+              Login via popup (no redirect)
+            </button>
+           )}
         </div>
       </div>
     </div>
